@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
-
-import { WamNode } from '../api/types';
+import { WamNode } from '@webaudiomodules/api';
 
 /**
  * The `CompositeAudioNode` can be used to mixin different `AudioNode`s into single one.

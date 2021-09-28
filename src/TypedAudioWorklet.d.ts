@@ -1,7 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-
-import { WamProcessor, AudioWorkletGlobalScope as IAudioWorkletGlobalScope } from '../api/types';
+import { WamProcessor, AudioWorkletGlobalScope as IAudioWorkletGlobalScope } from '@webaudiomodules/api';
 
 export interface TypedAudioWorkletNodeOptions<T = any> extends AudioWorkletNodeOptions {
 	processorOptions?: T;
@@ -39,6 +36,13 @@ export interface TypedMessagePort<In = any, Out = any> extends MessagePort {
 	addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 	removeEventListener<K extends keyof TypedMessagePortEventMap<In>>(type: K, listener: (this: MessagePort, ev: TypedMessagePortEventMap<In>[K]) => any, options?: boolean | EventListenerOptions): void;
 	removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+export interface AudioParamDescriptor {
+    automationRate?: AutomationRate;
+    defaultValue?: number;
+    maxValue?: number;
+    minValue?: number;
+    name: string;
 }
 export interface TypedAudioParamDescriptor<Par extends string = string> extends AudioParamDescriptor {
 	automationRate?: AutomationRate;

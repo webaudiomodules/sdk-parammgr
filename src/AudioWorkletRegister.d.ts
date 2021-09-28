@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { AudioWorkletRegister } from './types';
 
 export const registeredProcessors: WeakMap<AudioWorklet, Set<string>>;

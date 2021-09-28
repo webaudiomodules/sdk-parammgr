@@ -1,7 +1,5 @@
-/* eslint-disable max-len */
-/* eslint-disable no-underscore-dangle */
-/** @typedef {import('../api/types').WamParameterConfiguration} WamParameterConfiguration */
-/** @typedef {import('../api/types').WamParameterInfoMap} WamParameterInfoMap */
+/** @typedef {import('@webaudiomodules/api').WamParameterConfiguration} WamParameterConfiguration */
+/** @typedef {import('@webaudiomodules/api').WamParameterInfoMap} WamParameterInfoMap */
 /** @typedef {import('./types').ParametersMapping} ParametersMapping */
 /** @typedef {import('./types').InternalParametersDescriptor} InternalParametersDescriptor */
 /** @typedef {import('./types').ParametersMappingConfiguratorOptions} ParametersMappingConfiguratorOptions */

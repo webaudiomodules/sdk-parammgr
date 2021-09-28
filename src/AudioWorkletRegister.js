@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
 /** @type {Window & { AudioWorkletRegister?: typeof AudioWorkletRegister }} */
 // @ts-ignore
 const window = globalThis;
@@ -21,8 +19,7 @@ export default class AudioWorkletRegister {
 	static async registerProcessor(processorId, processor, audioWorklet, ...injection) {
 		this.registeringProcessors.get(audioWorklet).add(processorId);
 		try {
-			// @ts-ignore
-			const url = window.URL.createObjectURL(new Blob([`(${processor.toString()})(${[processorId, ...injection].map(JSON.stringify).join(', ')});`], { type: 'text/javascript' }));
+			const url = URL.createObjectURL(new Blob([`(${processor.toString()})(${[processorId, ...injection].map(s => JSON.stringify(s)).join(', ')});`], { type: 'text/javascript' }));
 			await audioWorklet.addModule(url);
 			this.resolves[processorId].forEach((f) => f());
 			this.registeringProcessors.get(audioWorklet).delete(processorId);

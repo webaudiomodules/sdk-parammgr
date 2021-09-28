@@ -1,16 +1,10 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable object-curly-newline */
-/* eslint-disable max-len */
-/* eslint-disable no-undef */
-/* eslint-disable prefer-destructuring */
-
 import MgrAudioParam from './MgrAudioParam.js';
 
-/** @typedef {import('../api/types').WebAudioModule} WebAudioModule */
-/** @typedef {import('../api/types').WamNode} WamNode */
-/** @typedef {import('../api/types').WamParameterDataMap} WamParameterValueMap */
-/** @typedef {import('../api/types').WamEvent} WamEvent */
-/** @typedef {import('../api/types').WamAutomationEvent} WamAutomationEvent */
+/** @typedef {import('@webaudiomodules/api').WebAudioModule} WebAudioModule */
+/** @typedef {import('@webaudiomodules/api').WamNode} WamNode */
+/** @typedef {import('@webaudiomodules/api').WamParameterDataMap} WamParameterValueMap */
+/** @typedef {import('@webaudiomodules/api').WamEvent} WamEvent */
+/** @typedef {import('@webaudiomodules/api').WamAutomationEvent} WamAutomationEvent */
 /** @typedef {import('./types').ParamMgrOptions} ParamMgrOptions */
 /** @typedef {import('./types').ParamMgrCallFromProcessor} ParamMgrCallFromProcessor */
 /** @typedef {import('./types').ParamMgrCallToProcessor} ParamMgrCallToProcessor */

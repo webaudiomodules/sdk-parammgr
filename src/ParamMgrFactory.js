@@ -1,11 +1,9 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable max-len */
 import './AudioWorkletRegister.js';
 import processor from './ParamMgrProcessor.js';
 import wamEnvExecutable from '../WamEnv.js';
 import ParamMappingConfigurator from './ParamConfigurator.js';
 import ParamMgrNode from './ParamMgrNode.js';
-/** @typedef {import('../api/types').WebAudioModule} WebAudioModule */
+/** @typedef {import('@webaudiomodules/api').WebAudioModule} WebAudioModule */
 /** @typedef {import('./types').ParametersMappingConfiguratorOptions} ParametersMappingConfiguratorOptions */
 /** @typedef {import('./types').ParamMgrOptions} ParamMgrOptions */
 /** @typedef {import('./types').AudioWorkletRegister} AudioWorkletRegister */

@@ -1,0 +1,34 @@
+{
+  "name": "@webaudiomodules/sdk-parammgr",
+  "version": "0.0.1",
+  "description": "Parameter Manager SDK for WebAudioModules Plugin",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "build": "esbuild src/index.js --target=es2017 --bundle --sourcemap --outdir=dist --format=esm",
+    "doc": "typedoc --name \"WebAudioModules API\" --tsconfig ./packages/sdk/tsconfig.json --out ./docs/typedoc --logLevel Verbose ./src/index.d.ts"
+  },
+  "keywords": [
+    "webaudio",
+    "webaudiomodules",
+    "wam",
+    "api"
+  ],
+  "author": "WebAudioModules Working Group",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/%40webaudiomodules/sdk-parammgr.git"
+  },
+  "devDependencies": {
+    "@webaudiomodules/api": "github:fr0stbyter/api",
+    "esbuild": "^0.12.28",
+    "typedoc": "^0.22.4",
+    "typescript": "^4.4.3"
+  },
+  "bugs": {
+    "url": "https://github.com/%40webaudiomodules/sdk-parammgr/issues"
+  },
+  "homepage": "https://github.com/%40webaudiomodules/sdk-parammgr#readme"
+}

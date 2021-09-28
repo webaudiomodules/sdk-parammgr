@@ -1,8 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-
-// eslint-disable-next-line object-curly-newline
-import { WamNodeOptions, WamParameterInfoMap, WamNode, WamParameterConfiguration, WamEvent, WebAudioModule, WamEventMap, WamParameter, WamProcessor } from '../api/types';
+import { WamNodeOptions, WamParameterInfoMap, WamNode, WamParameterConfiguration, WamEvent, WebAudioModule, WamEventMap, WamParameter, WamProcessor } from '@webaudiomodules/api';
 import { TypedAudioWorkletNode, TypedAudioWorkletNodeOptions } from './TypedAudioWorklet';
 
 export class AudioWorkletRegister {
@@ -21,37 +17,22 @@ export class AudioWorkletRegister {
 	static register(processorId: string, processor: (id: string, ...injections: any[]) => void, audioWorklet: AudioWorklet, ...injection: any[]): Promise<void>;
 }
 export interface InternalParameterDescriptor {
-    /**
-     * `0` by default
-     */
+    /** `0` by default */
     defaultValue?: number;
-    /**
-     * `0` by default
-     */
+    /** `0` by default */
     minValue?: number;
-    /**
-     * `1` by default
-     */
+    /** `1` by default */
     maxValue?: number;
-    /**
-     * `30` (1/30s for each change check) by default
-     */
+    /** `30` (1/30s for each change check) by default */
     automationRate?: number;
-    /**
-     * The default event listener,
-     * the event will be fired when the param get changed
-     */
+    /** The default event listener, the event will be fired when the param get changed */
     onChange?: (value: number, previousValue: number) => any;
 }
 export type InternalParametersDescriptor<InternalParams extends string = string> = Record<InternalParams, AudioParam | InternalParameterDescriptor>;
 export interface ParameterMappingTarget {
-    /**
-     * Source param's `[minValue, maxValue]` by default
-     */
+    /** Source param's `[minValue, maxValue]` by default */
     sourceRange?: [number, number];
-    /**
-     * Source param's `[minValue, maxValue]` by default
-     */
+    /** Source param's `[minValue, maxValue]` by default */
     targetRange?: [number, number];
 }
 export type ParametersMapping<Params extends string = string, InternalParams extends string = string> = Record<Params, Record<InternalParams, ParameterMappingTarget>>;

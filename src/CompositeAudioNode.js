@@ -1,7 +1,5 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
-/** @typedef {import('../api/types').WamNode} WamNode */
-/** @typedef {import('../api/types').WebAudioModule} WebAudioModule */
+/** @typedef {import('@webaudiomodules/api').WamNode} WamNode */
+/** @typedef {import('@webaudiomodules/api').WebAudioModule} WebAudioModule */
 
 /**
  * @implements {WamNode}

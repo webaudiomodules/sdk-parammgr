@@ -1,13 +1,7 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable max-len */
-/* eslint-disable no-undef */
-/* eslint-disable no-plusplus */
-/** @typedef {import('../api/types').WamProcessor} WamProcessor */
-/** @typedef {import('../api/types').WamParameterInfoMap} WamParameterInfoMap */
-/** @typedef {import('../api/types').WamParameterDataMap} WamParameterValueMap */
-/** @typedef {import('../api/types').WamEvent} WamEvent */
+/** @typedef {import('@webaudiomodules/api').WamProcessor} WamProcessor */
+/** @typedef {import('@webaudiomodules/api').WamParameterInfoMap} WamParameterInfoMap */
+/** @typedef {import('@webaudiomodules/api').WamParameterDataMap} WamParameterValueMap */
+/** @typedef {import('@webaudiomodules/api').WamEvent} WamEvent */
 /** @typedef {import('./types').ParamMgrOptions} ParamMgrProcessorOptions */
 /** @typedef {import('./TypedAudioWorklet').AudioWorkletGlobalScope} AudioWorkletGlobalScope */
 /** @typedef {import('./TypedAudioWorklet').TypedAudioWorkletProcessor} AudioWorkletProcessor */
@@ -282,7 +276,7 @@ const processor = (processorId, paramsConfig) => {
 					}
 					if (out.length === 1) outputs[j + outputOffset][0].fill(out[0]);
 					else outputs[j + outputOffset][0].set(out);
-					this.$internalParamsBuffer[j] = out[0]; // eslint-disable-line prefer-destructuring
+					this.$internalParamsBuffer[j] = out[0];
 				});
 			});
 			this.unlock();
