@@ -7,7 +7,7 @@
   "types": "src/index.d.ts",
   "scripts": {
     "build": "esbuild src/index.js --target=es2017 --bundle --sourcemap --outdir=dist --format=esm",
-    "doc": "typedoc --name \"WebAudioModules API\" --tsconfig ./packages/sdk/tsconfig.json --out ./docs/typedoc --logLevel Verbose ./src/index.d.ts"
+    "doc": "typedoc --name \"Parameter Manager \" --tsconfig ./tsconfig.json --media ./img --out ./docs/typedoc --logLevel Verbose ./src/index.d.ts"
   },
   "keywords": [
     "webaudio",
@@ -22,10 +22,11 @@
     "url": "git+https://github.com/%40webaudiomodules/sdk-parammgr.git"
   },
   "devDependencies": {
-    "@webaudiomodules/api": "github:fr0stbyter/api",
-    "esbuild": "^0.12.28",
-    "typedoc": "^0.22.4",
-    "typescript": "^4.4.3"
+    "@webaudiomodules/api": "^2.0.0-alpha.0",
+    "@webaudiomodules/sdk": "0.0.2",
+    "esbuild": "^0.13.8",
+    "typedoc": "^0.22.6",
+    "typescript": "^4.4.4"
   },
   "bugs": {
     "url": "https://github.com/%40webaudiomodules/sdk-parammgr/issues"

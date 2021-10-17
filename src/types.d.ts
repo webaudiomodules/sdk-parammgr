@@ -1,4 +1,4 @@
-import { WamNodeOptions, WamParameterInfoMap, WamNode, WamParameterConfiguration, WamEvent, WebAudioModule, WamEventMap, WamParameter, WamProcessor } from '@webaudiomodules/api';
+import { WamNodeOptions, WamParameterInfoMap, WamNode, WamParameterConfiguration, WamEvent, WebAudioModule, WamEventMap, WamParameter, WamProcessor, WamParameterInfo } from '@webaudiomodules/api';
 import { TypedAudioWorkletNode, TypedAudioWorkletNodeOptions } from './TypedAudioWorklet';
 
 export class AudioWorkletRegister {
@@ -90,6 +90,7 @@ export interface ParamMgrOptions extends TypedAudioWorkletNodeOptions<ParamMgrAu
  * All `AudioParam`s generated from the `ParamMgr` will inherit this class
  */
 export interface MgrAudioParam extends AudioParam, WamParameter {
+    _info: WamParameterInfo;
     // normalized version of methods
     cancelAndHoldAtTime(cancelTime: number): MgrAudioParam;
     cancelScheduledValues(cancelTime: number): MgrAudioParam;

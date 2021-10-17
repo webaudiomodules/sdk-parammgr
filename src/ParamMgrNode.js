@@ -45,7 +45,7 @@ export default class ParamMgrNode extends AudioWorkletNode {
 
 		Object.entries(this.getParams()).forEach(([name, param]) => {
 			Object.setPrototypeOf(param, MgrAudioParam.prototype);
-			param.info = this.paramsConfig[name];
+			param._info = this.paramsConfig[name];
 		});
 
 		/** @type {Record<number, ((...args: any[]) => any)>} */

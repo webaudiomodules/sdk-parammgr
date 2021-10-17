@@ -3,7 +3,7 @@
 		"checkJs": true,
 		"moduleResolution": "node",
 		"baseUrl": "./",
-		"lib": ["DOM", "DOM.Iterable", "ES2017"],
+		"lib": ["DOM", "DOM.Iterable", "ES2020"],
 		"target": "es6",
 		"noEmit": true
 	},
