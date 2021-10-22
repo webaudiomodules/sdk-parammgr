@@ -1,6 +1,6 @@
 # Parameter Manager
 
-This document provides a description of the Parameter Manager used in the `WebAudioModule` [SDK](https://github.com/53js/webaudiomodule/tree/master/packages/sdk), and a guide to handle parameters in an `WebAudioModule` with the Parameter Manager.
+This document provides a description of the Parameter Manager used for the `WebAudioModule` [SDK](https://github.com/webaudiomodules/sdk), and a guide to handle parameters in an `WebAudioModule` with the Parameter Manager.
 
 ### Motivation
 
@@ -10,11 +10,11 @@ It is important for an `WebAudioModule` to control its parameters sample-accurat
 
 ### Plugin Design Patterns
 
-As described in the `WebAudioModule` API, the developer should declare and configure every parameters as `WamParameterInfo` that are controllable and automatable by the host application, and let them accessible via `WamNode`'s methods, such as `getParameterInfo()`. In the Parameter Manager, we consider these parameters are the WAM's *exposed parameters*. (see [`ParametersMappingConfiguratorOptions.paramsConfig`](https://github.com/53js/webaudiomodule/blob/master/packages/sdk/src/ParamMgr/types.d.ts#L60)).
+As described in the `WebAudioModule` API, the developer should declare and configure every parameters as `WamParameterInfo` that are controllable and automatable by the host application, and let them accessible via `WamNode`'s methods, such as `getParameterInfo()`. In the Parameter Manager, we consider these parameters are the WAM's *exposed parameters*. (see [`ParametersMappingConfiguratorOptions.paramsConfig`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L41)).
 
-In a host, by automating or controlling these *exposed parameters*, it will as a result change the WAM's internal state. The variables to be changed in the internal state, which we call *internal parameters*, can be an `AudioParam` or an event handler that will be called while the values change, under a certain fire rate. (see [`InternalParametersDescriptor`](https://github.com/53js/webaudiomodule/blob/master/packages/sdk/src/ParamMgr/types.d.ts#L46))
+In a host, by automating or controlling these *exposed parameters*, it will as a result change the WAM's internal state. The variables to be changed in the internal state, which we call *internal parameters*, can be an `AudioParam` or an event handler that will be called while the values change, under a certain fire rate. (see [`InternalParametersDescriptor`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L31))
 
-In some use cases, the plugin need to control multiple *internal parameters* with one single *exposed parameters*, and with different value scalings or mappings. For example, an *exposed parameter* `mix` need to be clipped from 0 to 0.5 and be mapped to 0 and 1 for an *internal parameter* `dry`; in the same time, it need to be clipped from 0.5 to 1 and be mapped to 1 and 0 for an *internal parameter* `wet`. This can be done easily by declaring a `paramsMapping`. (see [`ParametersMapping`](https://github.com/53js/webaudiomodule/blob/master/packages/sdk/src/ParamMgr/types.d.ts#L57))
+In some use cases, the plugin need to control multiple *internal parameters* with one single *exposed parameters*, and with different value scalings or mappings. For example, an *exposed parameter* `mix` need to be clipped from 0 to 0.5 and be mapped to 0 and 1 for an *internal parameter* `dry`; in the same time, it need to be clipped from 0.5 to 1 and be mapped to 1 and 0 for an *internal parameter* `wet`. This can be done easily by declaring a `paramsMapping`. (see [`ParametersMapping`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L38))
 
 By using `ParamMgrFactory.create` static method, the developer will create an instance of the Parameter Manager that will automatically handle the parameters. It depends on the configuration provided with `paramsConfig`, `internalParamsConfig` and `paramsMapping` properties of the `optionsIn` argument. There are three main design patterns to declare and link the *exposed parameters* to the *internal parameters* using the Parameter Manager.
 
@@ -103,7 +103,7 @@ const paramMgr = await ParamMgrFactory.create(wam, option);
 
 ### Creating a Composite `AudioNode` using the Parameter Manager
 
-`WebAudioModule` API requires that the module's `audioNode` is connectable as audio I/O, and implements the `WamNode` interface. As a developer, one can use the Parameter Manager to act as the `WamNode` interface, and use another `AudioNode` to act as the audio I/O by creating a `CompositeAudioNode`. We provide a [prototype](https://github.com/53js/webaudiomodule/blob/master/packages/sdk/src/ParamMgr/CompositeAudioNode.d.ts) of the `CompositeAudioNode` in the Parameter Manager folder.
+`WebAudioModule` API requires that the module's `audioNode` is connectable as audio I/O, and implements the `WamNode` interface. As a developer, one can use the Parameter Manager to act as the `WamNode` interface, and use another `AudioNode` to act as the audio I/O by creating a `CompositeAudioNode`. We provide a [prototype](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/CompositeAudioNode.d.ts) of the `CompositeAudioNode` in the Parameter Manager folder.
 
 To get it work with the Parameter Manager, see this example:
 
