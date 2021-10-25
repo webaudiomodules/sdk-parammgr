@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@webaudiomodules/api": "^2.0.0-alpha.1",
-    "@webaudiomodules/sdk": "^0.0.4",
+    "@webaudiomodules/sdk": "^0.0.5",
     "esbuild": "^0.13.9",
     "typedoc": "^0.22.7",
     "typescript": "^4.4.4"
