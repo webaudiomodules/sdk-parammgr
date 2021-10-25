@@ -1,6 +1,6 @@
 import './AudioWorkletRegister.js';
 import processor from './ParamMgrProcessor.js';
-import wamEnvExecutable from '@webaudiomodules/sdk/src/WamEnv.js';
+import wamEnvExecutable from './sdk/src/WamEnv.js';
 import ParamMappingConfigurator from './ParamConfigurator.js';
 import ParamMgrNode from './ParamMgrNode.js';
 /** @typedef {import('@webaudiomodules/api').WebAudioModule} WebAudioModule */

@@ -4,7 +4,7 @@
 /** @typedef {import('./types').InternalParametersDescriptor} InternalParametersDescriptor */
 /** @typedef {import('./types').ParametersMappingConfiguratorOptions} ParametersMappingConfiguratorOptions */
 
-import { WamParameterInfo } from '@webaudiomodules/sdk';
+import WamParameterInfo from './sdk/src/WamParameterInfo';
 
 export default class ParamMappingConfigurator {
 	/**
