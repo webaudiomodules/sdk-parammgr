@@ -22,7 +22,12 @@ const processor = (processorId, paramsConfig) => {
 	/** @type {AudioWorkletGlobalScope} */
 	// @ts-ignore
 	const audioWorkletGlobalScope = globalThis;
-	const { AudioWorkletProcessor, registerProcessor } = audioWorkletGlobalScope;
+	const {
+		AudioWorkletProcessor,
+		registerProcessor,
+		webAudioModules,
+	} = audioWorkletGlobalScope;
+
 	const supportSharedArrayBuffer = !!globalThis.SharedArrayBuffer;
 	const SharedArrayBuffer = globalThis.SharedArrayBuffer || globalThis.ArrayBuffer;
 	const normExp = (x, e) => (e === 0 ? x : x ** (1.5 ** -e));
@@ -205,27 +210,11 @@ const processor = (processorId, paramsConfig) => {
 			this.eventQueue.sort((a, b) => (a.time || currentTime) - (b.time || currentTime));
 		}
 
-		get downstream() {
-			const wams = new Set();
-			const { eventGraph } = audioWorkletGlobalScope.webAudioModules;
-			if (!eventGraph.has(this)) return wams;
-			const outputMap = eventGraph.get(this);
-			outputMap.forEach((set) => {
-				if (set) set.forEach((wam) => wams.add(wam));
-			});
-			return wams;
-		}
-
 		/**
 		 * @param {WamEvent[]} events
 		 */
 		emitEvents(...events) {
-			const { eventGraph } = audioWorkletGlobalScope.webAudioModules;
-			if (!eventGraph.has(this)) return;
-			const downstream = eventGraph.get(this);
-			downstream.forEach((set) => {
-				if (set) set.forEach((wam) => wam.scheduleEvents(...events));
-			});
+			webAudioModules.emitEvents(this, ...events);
 		}
 
 		clearEvents() {
@@ -300,9 +289,7 @@ const processor = (processorId, paramsConfig) => {
 		 * @param {number} [output]
 		 */
 		connectEvents(wamInstanceId, output) {
-			const wam = audioWorkletGlobalScope.webAudioModules.processors[wamInstanceId];
-			if (!wam) return;
-			audioWorkletGlobalScope.webAudioModules.connectEvents(this, wam, output);
+			webAudioModules.connectEvents(this.instanceId, wamInstanceId, output);
 		}
 
 		/**
@@ -311,12 +298,10 @@ const processor = (processorId, paramsConfig) => {
 		 */
 		disconnectEvents(wamInstanceId, output) {
 			if (typeof wamInstanceId === 'undefined') {
-				audioWorkletGlobalScope.webAudioModules.disconnectEvents(this);
+				webAudioModules.disconnectEvents(this.instanceId);
 				return;
 			}
-			const wam = audioWorkletGlobalScope.webAudioModules.processors[wamInstanceId];
-			if (!wam) return;
-			audioWorkletGlobalScope.webAudioModules.disconnectEvents(this, wam, output);
+			webAudioModules.disconnectEvents(this.instanceId, wamInstanceId, output);
 		}
 
 		destroy() {
