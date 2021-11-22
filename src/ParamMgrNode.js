@@ -468,21 +468,19 @@ export default class ParamMgrNode extends AudioWorkletNode {
 	}
 
 	/**
-	 * @param {WamNode} to
+	 * @param {string} toId
 	 * @param {number} [output]
 	 */
-	connectEvents(to, output) {
-		if (!to.module?.isWebAudioModule) return;
-		this.call('connectEvents', to.instanceId, output);
+	connectEvents(toId, output) {
+		this.call('connectEvents', toId, output);
 	}
 
 	/**
-	 * @param {WamNode} [to]
+	 * @param {string} [toId]
 	 * @param {number} [output]
 	 */
-	disconnectEvents(to, output) {
-		if (to && !to.module?.isWebAudioModule) return;
-		this.call('disconnectEvents', to?.instanceId, output);
+	disconnectEvents(toId, output) {
+		this.call('disconnectEvents', toId, output);
 	}
 
 	async destroy() {
