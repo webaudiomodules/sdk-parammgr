@@ -4,7 +4,7 @@
 /** @typedef {import('./types').InternalParametersDescriptor} InternalParametersDescriptor */
 /** @typedef {import('./types').ParametersMappingConfiguratorOptions} ParametersMappingConfiguratorOptions */
 
-import { getWamParameterInfo } from '@webaudiomodules/sdk';
+import { getWamParameterInfo } from './sdk';
 
 const WamParameterInfo = getWamParameterInfo();
 
