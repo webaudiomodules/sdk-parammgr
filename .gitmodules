@@ -1,3 +1,6 @@
 [submodule "src/sdk"]
 	path = src/sdk
-	url = https://github.com/webaudiomodules/sdk
+	# url = https://github.com/webaudiomodules/sdk
+	url = ../sdk
+	# branch = master
+	branch = rfx-wam-env_sdk

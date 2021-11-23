@@ -22,8 +22,8 @@
     "url": "git+https://github.com/%40webaudiomodules/sdk-parammgr.git"
   },
   "devDependencies": {
-    "@webaudiomodules/api": "^2.0.0-alpha.2",
-    "@webaudiomodules/sdk": "^0.0.6",
+    "@webaudiomodules/api": "../api",
+    "@webaudiomodules/sdk": "../sdk",
     "esbuild": "^0.13.9",
     "typedoc": "^0.22.7",
     "typescript": "^4.4.4"
