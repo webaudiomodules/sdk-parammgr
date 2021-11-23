@@ -1,4 +1,4 @@
-import { addFunctionModule } from './sdk';
+import addFunctionModule from './sdk/src/addFunctionModule.js';
 import processor from './ParamMgrProcessor.js';
 import ParamMappingConfigurator from './ParamConfigurator.js';
 import ParamMgrNode from './ParamMgrNode.js';

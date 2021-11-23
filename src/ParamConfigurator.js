@@ -4,7 +4,7 @@
 /** @typedef {import('./types').InternalParametersDescriptor} InternalParametersDescriptor */
 /** @typedef {import('./types').ParametersMappingConfiguratorOptions} ParametersMappingConfiguratorOptions */
 
-import { getWamParameterInfo } from './sdk';
+import getWamParameterInfo from './sdk/src/WamParameterInfo.js';
 
 const WamParameterInfo = getWamParameterInfo();
 
