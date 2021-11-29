@@ -18,6 +18,27 @@ export default class CompositeAudioNode extends GainNode {
 	}
 
 	/**
+	 * @param {Parameters<WamNode['addEventListener']>} args
+	 */
+	addEventListener(...args) {
+		return this._wamNode.addEventListener(...args);
+	}
+
+	/**
+	 * @param {Parameters<WamNode['removeEventListener']>} args
+	 */
+	removeEventListener(...args) {
+		return this._wamNode.removeEventListener(...args);
+	}
+
+	/**
+	 * @param {Parameters<WamNode['dispatchEvent']>} args
+	 */
+    dispatchEvent(...args) {
+		return this._wamNode.dispatchEvent(...args);
+	}
+
+	/**
 	 * @param {Parameters<WamNode['getParameterInfo']>} args
 	 */
 	getParameterInfo(...args) {
