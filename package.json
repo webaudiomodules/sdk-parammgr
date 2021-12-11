@@ -1,6 +1,6 @@
 {
   "name": "@webaudiomodules/sdk-parammgr",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Parameter Manager SDK for WebAudioModules Plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -22,11 +22,12 @@
     "url": "git+https://github.com/%40webaudiomodules/sdk-parammgr.git"
   },
   "devDependencies": {
-    "@webaudiomodules/api": "../api",
-    "@webaudiomodules/sdk": "../sdk",
-    "esbuild": "^0.13.9",
-    "typedoc": "^0.22.7",
-    "typescript": "^4.4.4"
+    "@webaudiomodules/api": "file:../api",
+    "@webaudiomodules/sdk": "file:../sdk",
+    "dts-bundle-generator": "^6.2.0",
+    "esbuild": "^0.14.2",
+    "typedoc": "^0.22.10",
+    "typescript": "^4.5.3"
   },
   "bugs": {
     "url": "https://github.com/%40webaudiomodules/sdk-parammgr/issues"
