@@ -15,10 +15,11 @@
 /**
  * Main function to stringify as a worklet.
  *
- * @param {string} processorId processor identifier
+ * @param {string} groupId group identifier 
+ * @param {string} moduleId processor identifier
  * @param {WamParameterInfoMap} paramsConfig parameterDescriptors
  */
-const processor = (processorId, paramsConfig) => {
+const processor = (groupId, moduleId, paramsConfig) => {
 	/** @type {AudioWorkletGlobalScope} */
 	// @ts-ignore
 	const audioWorkletGlobalScope = globalThis;
@@ -87,7 +88,8 @@ const processor = (processorId, paramsConfig) => {
 				internalParams,
 				instanceId,
 			} = options.processorOptions;
-			this.moduleId = processorId;
+			this.groupId = groupId;
+			this.moduleId = moduleId;
 			this.instanceId = instanceId;
 			this.internalParamsMinValues = internalParamsMinValues;
 			this.paramsConfig = paramsConfig;
@@ -108,7 +110,7 @@ const processor = (processorId, paramsConfig) => {
 			/** @type {(event: WamEvent) => any} */
 			this.handleEvent = null;
 
-			audioWorkletGlobalScope.webAudioModules.create(this);
+			audioWorkletGlobalScope.webAudioModules.addWam(this);
 
 			this.messagePortRequestId = -1;
 			/** @type {Record<number, ((...args: any[]) => any)>} */
@@ -289,7 +291,7 @@ const processor = (processorId, paramsConfig) => {
 		 * @param {number} [output]
 		 */
 		connectEvents(wamInstanceId, output) {
-			webAudioModules.connectEvents(this.instanceId, wamInstanceId, output);
+			webAudioModules.connectEvents(this.groupId, this.instanceId, wamInstanceId, output);
 		}
 
 		/**
@@ -298,20 +300,20 @@ const processor = (processorId, paramsConfig) => {
 		 */
 		disconnectEvents(wamInstanceId, output) {
 			if (typeof wamInstanceId === 'undefined') {
-				webAudioModules.disconnectEvents(this.instanceId);
+				webAudioModules.disconnectEvents(this.groupId, this.instanceId);
 				return;
 			}
-			webAudioModules.disconnectEvents(this.instanceId, wamInstanceId, output);
+			webAudioModules.disconnectEvents(this.groupId, this.instanceId, wamInstanceId, output);
 		}
 
 		destroy() {
-			audioWorkletGlobalScope.webAudioModules.destroy(this);
+			audioWorkletGlobalScope.webAudioModules.removeWam(this);
 			this.destroyed = true;
 			this.port.close();
 		}
 	}
 	try {
-		registerProcessor(processorId, ParamMgrProcessor);
+		registerProcessor(moduleId, ParamMgrProcessor);
 	} catch (error) {
 		// eslint-disable-next-line no-console
 		console.warn(error);

@@ -13,7 +13,7 @@ export default class ParamMgrFactory {
 	 * @param {ParametersMappingConfiguratorOptions} [optionsIn = {}]
 	 */
 	static async create(module, optionsIn = {}) {
-		const { audioContext, moduleId: processorId, instanceId } = module;
+		const { audioContext, groupId, moduleId, instanceId } = module;
 		const { paramsConfig, paramsMapping, internalParamsConfig } = new ParamMappingConfigurator(optionsIn);
 		const initialParamsValue = Object.entries(paramsConfig)
 			.reduce((currentParams, [name, { defaultValue }]) => {
@@ -25,7 +25,7 @@ export default class ParamMgrFactory {
 				currentParams[name] = { id, label, type, defaultValue, minValue, maxValue, discreteStep, exponent, choices, units };
 				return currentParams;
 			}, {});
-		await addFunctionModule(audioContext.audioWorklet, processor, processorId, serializableParamsConfig);
+		await addFunctionModule(audioContext.audioWorklet, processor, groupId, moduleId, serializableParamsConfig);
 		/** @type {ParamMgrOptions} */
 		const options = {
 			internalParamsConfig,
@@ -37,7 +37,7 @@ export default class ParamMgrFactory {
 					.map((config) => Math.max(0, config?.minValue || 0)),
 				internalParams: Object.keys(internalParamsConfig),
 				instanceId,
-				processorId,
+				moduleId,
 			},
 		};
 		const node = new ParamMgrNode(module, options);

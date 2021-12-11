@@ -100,7 +100,11 @@ export default class ParamMgrNode extends AudioWorkletNode {
 		return super.parameters;
 	}
 
-	get processorId() {
+	get groupId() {
+		return this.module.groupId;
+	}
+
+	get moduleId() {
 		return this.module.moduleId;
 	}
 

@@ -5,8 +5,12 @@
  * @implements {WamNode}
  */
 export default class CompositeAudioNode extends GainNode {
-	get processorId() {
-		return this._wamNode.processorId;
+	get groupId() {
+		return this._wamNode.groupId;
+	}
+
+	get moduleId() {
+		return this._wamNode.moduleId;
 	}
 
 	get instanceId() {
