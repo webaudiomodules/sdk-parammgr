@@ -25,7 +25,7 @@ export default class ParamMgrFactory {
 				currentParams[name] = { id, label, type, defaultValue, minValue, maxValue, discreteStep, exponent, choices, units };
 				return currentParams;
 			}, {});
-		await addFunctionModule(audioContext.audioWorklet, processor, groupId, moduleId, serializableParamsConfig);
+		await addFunctionModule(audioContext.audioWorklet, processor, moduleId, serializableParamsConfig);
 		/** @type {ParamMgrOptions} */
 		const options = {
 			internalParamsConfig,
@@ -36,6 +36,7 @@ export default class ParamMgrFactory {
 				internalParamsMinValues: Object.values(internalParamsConfig)
 					.map((config) => Math.max(0, config?.minValue || 0)),
 				internalParams: Object.keys(internalParamsConfig),
+				groupId,
 				instanceId,
 				moduleId,
 			},

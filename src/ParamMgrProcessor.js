@@ -15,11 +15,10 @@
 /**
  * Main function to stringify as a worklet.
  *
- * @param {string} groupId group identifier 
  * @param {string} moduleId processor identifier
  * @param {WamParameterInfoMap} paramsConfig parameterDescriptors
  */
-const processor = (groupId, moduleId, paramsConfig) => {
+const processor = (moduleId, paramsConfig) => {
 	/** @type {AudioWorkletGlobalScope} */
 	// @ts-ignore
 	const audioWorkletGlobalScope = globalThis;
@@ -86,6 +85,7 @@ const processor = (groupId, moduleId, paramsConfig) => {
 				paramsMapping,
 				internalParamsMinValues,
 				internalParams,
+				groupId,
 				instanceId,
 			} = options.processorOptions;
 			this.groupId = groupId;
