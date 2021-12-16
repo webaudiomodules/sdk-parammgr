@@ -148,7 +148,7 @@ var addFunctionModule = (audioWorklet, processorFunction, ...injection) => {
 var addFunctionModule_default = addFunctionModule;
 
 // src/ParamMgrProcessor.js
-var processor = (groupId, moduleId, paramsConfig) => {
+var processor = (moduleId, paramsConfig) => {
   const audioWorkletGlobalScope = globalThis;
   const {
     AudioWorkletProcessor,
@@ -179,6 +179,7 @@ var processor = (groupId, moduleId, paramsConfig) => {
         paramsMapping,
         internalParamsMinValues,
         internalParams,
+        groupId,
         instanceId
       } = options.processorOptions;
       this.groupId = groupId;
@@ -368,7 +369,7 @@ var processor = (groupId, moduleId, paramsConfig) => {
 var ParamMgrProcessor_default = processor;
 
 // src/sdk/src/WamParameterInfo.js
-var getWamParameterInfo = (groupId, moduleId) => {
+var getWamParameterInfo = (moduleId) => {
   const audioWorkletGlobalScope = globalThis;
   const normExp = (x, e) => e === 0 ? x : x ** 1.5 ** -e;
   const denormExp = (x, e) => e === 0 ? x : x ** 1.5 ** e;
@@ -454,7 +455,7 @@ var getWamParameterInfo = (groupId, moduleId) => {
     }
   }
   if (audioWorkletGlobalScope.AudioWorkletProcessor) {
-    const ModuleScope = audioWorkletGlobalScope.webAudioModules.getModuleScope(groupId, moduleId);
+    const ModuleScope = audioWorkletGlobalScope.webAudioModules.getModuleScope(moduleId);
     if (!ModuleScope.WamParameterInfo)
       ModuleScope.WamParameterInfo = WamParameterInfo2;
   }
@@ -1000,7 +1001,7 @@ var ParamMgrFactory = class {
       currentParams[name] = { id, label, type, defaultValue, minValue, maxValue, discreteStep, exponent, choices, units };
       return currentParams;
     }, {});
-    await addFunctionModule_default(audioContext.audioWorklet, ParamMgrProcessor_default, groupId, moduleId, serializableParamsConfig);
+    await addFunctionModule_default(audioContext.audioWorklet, ParamMgrProcessor_default, moduleId, serializableParamsConfig);
     const options = {
       internalParamsConfig,
       parameterData: initialParamsValue,
@@ -1009,6 +1010,7 @@ var ParamMgrFactory = class {
         paramsMapping,
         internalParamsMinValues: Object.values(internalParamsConfig).map((config) => Math.max(0, (config == null ? void 0 : config.minValue) || 0)),
         internalParams: Object.keys(internalParamsConfig),
+        groupId,
         instanceId,
         moduleId
       }
