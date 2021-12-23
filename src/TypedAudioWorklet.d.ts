@@ -74,8 +74,6 @@ export type TypedAudioParamMap<P extends string = string> = ReadonlyMap<P, Audio
 export interface TypedAudioWorkletNode<MsgIn = any, MsgOut = any, Par extends string = string, EventMap extends Record<string, any> = any> extends AudioWorkletNode {
 	readonly port: TypedMessagePort<MsgIn, MsgOut>;
 	readonly parameters: TypedAudioParamMap<Par>;
-	destroyed: boolean;
-	destroy(): void;
     addEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener<K extends keyof EventMap>(type: K, listener: (this: AudioWorkletNode, ev: CustomEvent<EventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
