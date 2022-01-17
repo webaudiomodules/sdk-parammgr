@@ -12,17 +12,17 @@ It is important for an `WebAudioModule` to control its parameters sample-accurat
 
 As described in the `WebAudioModule` API, the developer should declare and configure every parameters as `WamParameterInfo` that are controllable and automatable by the host application, and let them accessible via `WamNode`'s methods, such as `getParameterInfo()`. In the Parameter Manager, we consider these parameters are the WAM's *exposed parameters*. (see [`ParametersMappingConfiguratorOptions.paramsConfig`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L41)).
 
-In a host, by automating or controlling these *exposed parameters*, it will as a result change the WAM's internal state. The variables to be changed in the internal state, which we call *internal parameters*, can be an `AudioParam` or an event handler that will be called while the values change, under a certain fire rate. (see [`InternalParametersDescriptor`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L31))
+In a host, by automating or controlling these *exposed parameters*, it will then change the WAM's internal state. The variables to be changed as the internal state, which we call *internal parameters*, can be an `AudioParam` or an event handler that will be called while the values change, under a certain fire rate. (see [`InternalParametersDescriptor`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L31))
 
-In some use cases, the plugin need to control multiple *internal parameters* with one single *exposed parameters*, and with different value scalings or mappings. For example, an *exposed parameter* `mix` need to be clipped from 0 to 0.5 and be mapped to 0 and 1 for an *internal parameter* `dry`; in the same time, it need to be clipped from 0.5 to 1 and be mapped to 1 and 0 for an *internal parameter* `wet`. This can be done easily by declaring a `paramsMapping`. (see [`ParametersMapping`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L38))
+In some use cases, the plugin needs to control multiple *internal parameters* with one single *exposed parameter*, and with different value scalings or mappings. For example, an *exposed parameter* `mix` need to be clipped from 0 to 0.5 and be mapped to 0 and 1 for an *internal parameter* `dry`; at the same time, it need to be clipped from 0.5 to 1 and be mapped to 1 and 0 for an *internal parameter* `wet`. This can be done easily by declaring a `paramsMapping`. (see [`ParametersMapping`](https://github.com/webaudiomodules/sdk-parammgr/blob/master/src/types.d.ts#L38))
 
-By using `ParamMgrFactory.create` static method, the developer will create an instance of the Parameter Manager that will automatically handle the parameters. It depends on the configuration provided with `paramsConfig`, `internalParamsConfig` and `paramsMapping` properties of the `optionsIn` argument. There are three main design patterns to declare and link the *exposed parameters* to the *internal parameters* using the Parameter Manager.
+By using the `ParamMgrFactory.create` static method, the developer will create an instance of the Parameter Manager that will automatically handle the parameters. It depends on the configuration provided with the `paramsConfig`, `internalParamsConfig` and `paramsMapping` properties of the `optionsIn` argument. There are three main design patterns to declare and link the *exposed parameters* to the *internal parameters* using the Parameter Manager.
 
 0. Direct to `AudioParam`, no need to declare the `paramsConfig` and the `paramsMapping`, declare only the `internalParamsConfig`.
 
 ![Direct to AudioParam](media://paramMgr_0.png)
 
-> If the developer leaves the `paramsConfig` and the `paramsMapping` undefined, the SDK will derive the `paramsConfig` from the `internalParamsConfig`, which means they are containing same parameter names and values. The `paramsMapping` will be filled with peer to peer mappings with no value mapping.
+> If the developer leaves the `paramsConfig` and the `paramsMapping` undefined, the SDK will derive the `paramsConfig` from the `internalParamsConfig`, which means they are containing the same parameter names and values. The `paramsMapping` will be filled with peer to peer mappings with no value mapping.
 
 > For example:
 ```JavaScript
@@ -66,7 +66,7 @@ const paramMgr = await ParamMgrFactory.create(wam, { internalParamsConfig });
 
 > If one parameter name appears in both `paramsConfig` and `internalParamsConfig`, the mapping will be created automatically if it is not declared explicitly in the `paramsMapping`.
 
-> Dynamically change the `paramsMapping` is possible using the `setParamsMapping` method.
+> Dynamically changing the `paramsMapping` is possible using the `setParamsMapping` method.
 
 > For example:
 ```JavaScript
@@ -108,9 +108,8 @@ const paramMgr = await ParamMgrFactory.create(wam, option);
 To get it work with the Parameter Manager, see this example:
 
 ```JavaScript
-import WebAudioModule from 'sdk/src/WebAudioModule';
-import ParamMgrFactory from 'sdk/src/ParamMgr/ParamMgrFactory';
-import CompositeAudioNode from 'sdk/src/ParamMgr/CompositeAudioNode';
+import { WebAudioModule } from '@webaudiomodules/sdk';
+import { ParamMgrFactory, CompositeAudioNode } from '@webaudiomodules/sdk-parammgr';
 
 class MyCompositeAudioNode extends CompositeAudioNode {
 	setup(output, paramMgr) {

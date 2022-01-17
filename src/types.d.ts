@@ -145,7 +145,6 @@ export interface ParamMgrNode<Params extends string = string, InternalParams ext
      * The state of the initialization.
      */
     readonly initialized: boolean;
-    readonly destroyed: boolean;
     /**
      * An array that contains ordered internal params names.
      * The order is important for the output connections and for the parameters' values buffer
