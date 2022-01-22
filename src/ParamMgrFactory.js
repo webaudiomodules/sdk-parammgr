@@ -1,6 +1,5 @@
-import './AudioWorkletRegister.js';
+import addFunctionModule from './sdk/src/addFunctionModule.js';
 import processor from './ParamMgrProcessor.js';
-import wamEnvExecutable from './sdk/src/WamEnv.js';
 import ParamMappingConfigurator from './ParamConfigurator.js';
 import ParamMgrNode from './ParamMgrNode.js';
 /** @typedef {import('@webaudiomodules/api').WebAudioModule} WebAudioModule */
@@ -14,7 +13,7 @@ export default class ParamMgrFactory {
 	 * @param {ParametersMappingConfiguratorOptions} [optionsIn = {}]
 	 */
 	static async create(module, optionsIn = {}) {
-		const { audioContext, moduleId: processorId, instanceId } = module;
+		const { audioContext, groupId, moduleId, instanceId } = module;
 		const { paramsConfig, paramsMapping, internalParamsConfig } = new ParamMappingConfigurator(optionsIn);
 		const initialParamsValue = Object.entries(paramsConfig)
 			.reduce((currentParams, [name, { defaultValue }]) => {
@@ -26,12 +25,7 @@ export default class ParamMgrFactory {
 				currentParams[name] = { id, label, type, defaultValue, minValue, maxValue, discreteStep, exponent, choices, units };
 				return currentParams;
 			}, {});
-		/** @type {typeof AudioWorkletRegister} */
-		// @ts-ignore
-		// eslint-disable-next-line prefer-destructuring
-		const AudioWorkletRegister = window.AudioWorkletRegister;
-		await AudioWorkletRegister.register('__WebAudioModules_WamEnv', wamEnvExecutable, audioContext.audioWorklet);
-		await AudioWorkletRegister.register(processorId, processor, audioContext.audioWorklet, serializableParamsConfig);
+		await addFunctionModule(audioContext.audioWorklet, processor, moduleId, serializableParamsConfig);
 		/** @type {ParamMgrOptions} */
 		const options = {
 			internalParamsConfig,
@@ -42,8 +36,9 @@ export default class ParamMgrFactory {
 				internalParamsMinValues: Object.values(internalParamsConfig)
 					.map((config) => Math.max(0, config?.minValue || 0)),
 				internalParams: Object.keys(internalParamsConfig),
+				groupId,
 				instanceId,
-				processorId,
+				moduleId,
 			},
 		};
 		const node = new ParamMgrNode(module, options);

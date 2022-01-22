@@ -5,8 +5,12 @@
  * @implements {WamNode}
  */
 export default class CompositeAudioNode extends GainNode {
-	get processorId() {
-		return this._wamNode.processorId;
+	get groupId() {
+		return this._wamNode.groupId;
+	}
+
+	get moduleId() {
+		return this._wamNode.moduleId;
 	}
 
 	get instanceId() {
@@ -15,6 +19,27 @@ export default class CompositeAudioNode extends GainNode {
 
 	get module() {
 		return this._wamNode.module;
+	}
+
+	/**
+	 * @param {Parameters<WamNode['addEventListener']>} args
+	 */
+	addEventListener(...args) {
+		return this._wamNode.addEventListener(...args);
+	}
+
+	/**
+	 * @param {Parameters<WamNode['removeEventListener']>} args
+	 */
+	removeEventListener(...args) {
+		return this._wamNode.removeEventListener(...args);
+	}
+
+	/**
+	 * @param {Parameters<WamNode['dispatchEvent']>} args
+	 */
+    dispatchEvent(...args) {
+		return this._wamNode.dispatchEvent(...args);
 	}
 
 	/**
