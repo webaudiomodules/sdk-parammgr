@@ -139,15 +139,10 @@ const processor = (moduleId, paramsConfig) => {
 					}
 					this.port.postMessage(r);
 				} else {
-					if (error) {
-						if (rejects[id]) rejects[id](error);
-						delete rejects[id];
-						return;
-					}
-					if (resolves[id]) {
-						resolves[id](value);
-						delete resolves[id];
-					}
+					if (error) rejects[id]?.(error);
+					else if (resolves[id]) resolves[id]?.(value);
+					delete resolves[id];
+					delete rejects[id];
 				}
 			};
 			this.port.start();

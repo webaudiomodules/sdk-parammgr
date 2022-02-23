@@ -210,6 +210,7 @@ var processor = (moduleId, paramsConfig) => {
         this.port.postMessage({ id, call, args });
       });
       this.handleMessage = ({ data }) => {
+        var _a, _b;
         const { id, call, args, value, error } = data;
         if (call) {
           const r = { id };
@@ -220,16 +221,12 @@ var processor = (moduleId, paramsConfig) => {
           }
           this.port.postMessage(r);
         } else {
-          if (error) {
-            if (rejects[id])
-              rejects[id](error);
-            delete rejects[id];
-            return;
-          }
-          if (resolves[id]) {
-            resolves[id](value);
-            delete resolves[id];
-          }
+          if (error)
+            (_a = rejects[id]) == null ? void 0 : _a.call(rejects, error);
+          else if (resolves[id])
+            (_b = resolves[id]) == null ? void 0 : _b.call(resolves, value);
+          delete resolves[id];
+          delete rejects[id];
         }
       };
       this.port.start();
@@ -655,6 +652,7 @@ var ParamMgrNode = class extends AudioWorkletNode {
       });
     };
     this.handleMessage = ({ data }) => {
+      var _a, _b;
       const { id, call, args, value, error } = data;
       if (call) {
         const r = { id };
@@ -665,16 +663,12 @@ var ParamMgrNode = class extends AudioWorkletNode {
         }
         this.port.postMessage(r);
       } else {
-        if (error) {
-          if (rejects[id])
-            rejects[id](error);
-          delete rejects[id];
-          return;
-        }
-        if (resolves[id]) {
-          resolves[id](value);
-          delete resolves[id];
-        }
+        if (error)
+          (_a = rejects[id]) == null ? void 0 : _a.call(rejects, error);
+        else if (resolves[id])
+          (_b = resolves[id]) == null ? void 0 : _b.call(resolves, value);
+        delete resolves[id];
+        delete rejects[id];
       }
     };
     this.port.start();
