@@ -11,6 +11,7 @@
 /** @typedef {import('./types').ParamMgrCallToProcessor} ParamMgrCallToProcessor */
 /** @typedef {import('./types').ParamMgrAudioWorkletOptions} ParamMgrAudioWorkletOptions */
 /** @typedef {import('./types').ParametersMapping} ParametersMapping */
+/** @typedef {import('./types').WamParamMgrSDKBaseModuleScope} WamParamMgrSDKBaseModuleScope */
 
 /**
  * Main function to stringify as a worklet.
@@ -27,6 +28,9 @@ const processor = (moduleId, paramsConfig) => {
 		registerProcessor,
 		webAudioModules,
 	} = audioWorkletGlobalScope;
+
+	/** @type {WamParamMgrSDKBaseModuleScope} */
+	const ModuleScope = audioWorkletGlobalScope.webAudioModules.getModuleScope(moduleId);
 
 	const supportSharedArrayBuffer = !!globalThis.SharedArrayBuffer;
 	const SharedArrayBuffer = globalThis.SharedArrayBuffer || globalThis.ArrayBuffer;
@@ -111,6 +115,8 @@ const processor = (moduleId, paramsConfig) => {
 			this.handleEvent = null;
 
 			audioWorkletGlobalScope.webAudioModules.addWam(this);
+			if (!ModuleScope.paramMgrProcessors) ModuleScope.paramMgrProcessors = {};
+			ModuleScope.paramMgrProcessors[this.instanceId] = this;
 
 			this.messagePortRequestId = -1;
 			/** @type {Record<number, ((...args: any[]) => any)>} */
@@ -140,7 +146,7 @@ const processor = (moduleId, paramsConfig) => {
 					this.port.postMessage(r);
 				} else {
 					if (error) rejects[id]?.(error);
-					else if (resolves[id]) resolves[id]?.(value);
+					else resolves[id]?.(value);
 					delete resolves[id];
 					delete rejects[id];
 				}
@@ -303,6 +309,7 @@ const processor = (moduleId, paramsConfig) => {
 
 		destroy() {
 			audioWorkletGlobalScope.webAudioModules.removeWam(this);
+			if (ModuleScope.paramMgrProcessors) delete ModuleScope.paramMgrProcessors[this.instanceId];
 			this.destroyed = true;
 			this.port.close();
 		}
