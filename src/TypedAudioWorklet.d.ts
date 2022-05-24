@@ -57,7 +57,7 @@ export interface TypedAudioWorkletProcessor<MsgIn = any, MsgOut = any, Par exten
 }
 export const TypedAudioWorkletProcessor: {
 	parameterDescriptors: TypedAudioParamDescriptor[];
-	new <MsgIn = any, MsgOut = any, Par extends string = string, Opt = any>(options: TypedAudioWorkletNodeOptions<Opt>): TypedAudioWorkletProcessor<MsgIn, MsgOut, Par>;
+	new <MsgIn = any, MsgOut = any, Par extends string = string>(): TypedAudioWorkletProcessor<MsgIn, MsgOut, Par>;
 };
 
 export interface AudioWorkletGlobalScope extends IAudioWorkletGlobalScope {

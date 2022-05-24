@@ -172,7 +172,7 @@ var processor = (moduleId, paramsConfig) => {
       }));
     }
     constructor(options) {
-      super(options);
+      super();
       this.destroyed = false;
       this.supportSharedArrayBuffer = supportSharedArrayBuffer;
       const {

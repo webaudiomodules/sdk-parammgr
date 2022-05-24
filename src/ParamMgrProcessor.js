@@ -78,7 +78,7 @@ const processor = (moduleId, paramsConfig) => {
 		 * @param {ParamMgrProcessorOptions} options
 		 */
 		constructor(options) {
-			super(options);
+			super();
 			this.destroyed = false;
 			this.supportSharedArrayBuffer = supportSharedArrayBuffer;
 			const {

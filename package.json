@@ -22,8 +22,8 @@
     "url": "git+https://github.com/webaudiomodules/sdk-parammgr.git"
   },
   "devDependencies": {
-    "@webaudiomodules/api": "^2.0.0-alpha.3",
-    "@webaudiomodules/sdk": "^0.0.7",
+    "@webaudiomodules/api": "^2.0.0-alpha.4",
+    "@webaudiomodules/sdk": "^0.0.9",
     "dts-bundle-generator": "^6.2.0",
     "esbuild": "^0.14.2",
     "typedoc": "^0.22.10",
