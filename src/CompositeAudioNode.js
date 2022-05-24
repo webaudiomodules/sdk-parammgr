@@ -6,15 +6,15 @@
  */
 export default class CompositeAudioNode extends GainNode {
 	get groupId() {
-		return this._wamNode.groupId;
+		return this.module.groupId;
 	}
 
 	get moduleId() {
-		return this._wamNode.moduleId;
+		return this.module.moduleId;
 	}
 
 	get instanceId() {
-		return this._wamNode.instanceId;
+		return this.module.instanceId;
 	}
 
 	get module() {

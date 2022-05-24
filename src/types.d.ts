@@ -41,6 +41,8 @@ export interface ParametersMappingConfiguratorOptions<Params extends string = st
     paramsConfig?: Record<Params, WamParameterConfiguration>;
     paramsMapping?: ParametersMapping<Params, InternalParams>;
     internalParamsConfig?: InternalParametersDescriptor<InternalParams>;
+    groupId?: string;
+    instanceId?: string;
 }
 
 export type PromisifiedFunction<F extends (...args: any[]) => any> = (...args: Parameters<F>) => PromiseLike<ReturnType<F>>;
@@ -327,3 +329,7 @@ export const ParamMgrFactory: {
 	 */
 	create<Params extends string = string, InternalParams extends string = string>(module: WebAudioModule, optionsIn?: ParametersMappingConfiguratorOptions<Params, InternalParams>): Promise<ParamMgrNode<Params, InternalParams>>;
 };
+
+export interface WamParamMgrSDKBaseModuleScope {
+	paramMgrProcessors?: { [instanceId: string]: ParamMgrProcessor };
+}

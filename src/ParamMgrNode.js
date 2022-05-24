@@ -35,6 +35,8 @@ export default class ParamMgrNode extends AudioWorkletNode {
 		const { processorOptions, internalParamsConfig } = options;
 		this.initialized = false;
 		this.module = module;
+		this.instanceId = options.processorOptions.instanceId;
+		this.groupId = options.processorOptions.groupId;
 		this.paramsConfig = processorOptions.paramsConfig;
 		this.internalParams = processorOptions.internalParams;
 		this.internalParamsConfig = internalParamsConfig;
@@ -78,7 +80,7 @@ export default class ParamMgrNode extends AudioWorkletNode {
 				this.port.postMessage(r);
 			} else {
                 if (error) rejects[id]?.(error);
-                else if (resolves[id]) resolves[id]?.(value);
+                else resolves[id]?.(value);
                 delete resolves[id];
                 delete rejects[id];
 			}
@@ -95,16 +97,8 @@ export default class ParamMgrNode extends AudioWorkletNode {
 		return super.parameters;
 	}
 
-	get groupId() {
-		return this.module.groupId;
-	}
-
 	get moduleId() {
 		return this.module.moduleId;
-	}
-
-	get instanceId() {
-		return this.module.instanceId;
 	}
 
 	async initialize() {

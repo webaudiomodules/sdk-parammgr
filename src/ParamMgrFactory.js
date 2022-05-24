@@ -13,7 +13,9 @@ export default class ParamMgrFactory {
 	 * @param {ParametersMappingConfiguratorOptions} [optionsIn = {}]
 	 */
 	static async create(module, optionsIn = {}) {
-		const { audioContext, groupId, moduleId, instanceId } = module;
+		const { audioContext, moduleId } = module;
+		const instanceId = optionsIn.instanceId || module.instanceId;
+		const groupId = optionsIn.groupId || module.groupId;
 		const { paramsConfig, paramsMapping, internalParamsConfig } = new ParamMappingConfigurator(optionsIn);
 		const initialParamsValue = Object.entries(paramsConfig)
 			.reduce((currentParams, [name, { defaultValue }]) => {
