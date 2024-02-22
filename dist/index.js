@@ -800,6 +800,7 @@ var ParamMgrNode = class extends AudioWorkletNode {
     this.paramsUpdateCheckFn = [];
     this.paramsUpdateCheckFnRef = [];
     this.messageRequestId = 0;
+    this.dummyGainNode = module.audioContext.createGain();
     Object.entries(this.getParams()).forEach(([name, param]) => {
       Object.setPrototypeOf(param, MgrAudioParam.prototype);
       param._info = this.paramsConfig[name];
@@ -863,6 +864,7 @@ var ParamMgrNode = class extends AudioWorkletNode {
         } finally {
           config.value = Math.max(0, config.minValue);
           this.connect(config, offset + i);
+          this.connect(this.dummyGainNode, offset + i, 0);
         }
       } else if (config instanceof AudioNode) {
         this.connect(config, offset + i);
